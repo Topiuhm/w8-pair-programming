@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const PropertyPage = () => {
+const PropertyPage = ({ isAuthenticated }) => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user ? user.token : null;
+
   const [property, setProperty] = useState(null);
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -28,9 +31,7 @@ const PropertyPage = () => {
   async function deleteProperty(id) {
     const res = await fetch(`/api/properties/${id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
+      headers: { Authorization: `Bearer ${token}` }
     });
     if (res.ok) {
       navigate("/");
@@ -57,8 +58,12 @@ const PropertyPage = () => {
           <p>{property.yearBuilt}</p>
           <p>{property.bedrooms}</p>
           <button onClick={() => navigate("/")}>Back</button>
-          <button onClick={() => navigate(`/edit/${id}`)}>Edit</button>
-          <button onClick={() => deleteProperty(property._id)}>Delete</button>
+          {isAuthenticated && (
+            <>
+              <button onClick={() => navigate(`/edit/${id}`)}>Edit</button>
+              <button onClick={() => deleteProperty(property._id)}>Delete</button>
+            </>
+          )}
         </>
       )}
     </div>

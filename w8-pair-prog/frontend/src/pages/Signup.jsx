@@ -3,7 +3,7 @@ import useField from "../hooks/useField";
 import useSignup from "../hooks/useSignup";
 import { useState } from "react"
 
-const Signup = () => {
+const Signup = ({ setIsAuthenticated }) => {
     const navigate = useNavigate();
     const name = useField("text");
     const email = useField("email");
@@ -41,6 +41,7 @@ const Signup = () => {
         });
         if (!error) {
             console.log("successful signup");
+            setIsAuthenticated(true);
             navigate("/");
         }
     }

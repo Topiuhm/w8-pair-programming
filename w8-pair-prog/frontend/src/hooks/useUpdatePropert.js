@@ -1,31 +1,33 @@
 import { useState } from "react";
 
 function usePropertyUpdate(url) {
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(null);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(null);
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user ? user.token : null;
 
-  const propertyUpdate = async (object) => {
-    setIsLoading(true);
-    setError(null);
-    const response = await fetch(url, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(object),
-    });
-    const property = await response.json();
-    //console.log(property);
+    const propertyUpdate = async (object) => {
+        setIsLoading(true);
+        setError(null);
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            body: JSON.stringify(object),
+        });
+        const property = await response.json();
+        //console.log(property);
 
-    if (!response.ok) {
-      setError(property.error);
-      setIsLoading(false);
-      return;
-    }
+        if (!response.ok) {
+            setError(property.error);
+            setIsLoading(false);
+            return;
+        }
 
-    setIsLoading(false);
-    return property;
-  };
+        setIsLoading(false);
+        return property;
+    };
 
-  return { propertyUpdate, isLoading, error };
+    return { propertyUpdate, isLoading, error };
 }
 
 export default usePropertyUpdate;

@@ -3,13 +3,15 @@ import { useState } from "react";
 function usePropertyCreate(url) {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user ? user.token : null;
 
     const propertyCreate = async (object) => {
         setIsLoading(true);
         setError(null);
-        await fetch(url, {
+        const response = await fetch(url, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
             body: JSON.stringify(object),
         });
         const property = await response.json();
