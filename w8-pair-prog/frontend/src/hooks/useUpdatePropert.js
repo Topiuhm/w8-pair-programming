@@ -8,11 +8,12 @@ function usePropertyUpdate(url) {
     setIsLoading(true);
     setError(null);
     const response = await fetch(url, {
-      method: "POST",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(object),
     });
     const property = await response.json();
+    //console.log(property);
 
     if (!response.ok) {
       setError(property.error);

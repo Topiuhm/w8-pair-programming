@@ -12,8 +12,8 @@ const PropertyPage = () => {
     const fetchProperty = async () => {
       const res = await fetch(`/api/properties/${id}`);
       const data = await res.json();
-      console.log(data)
-      console.log(res)
+      //console.log(data)
+      //console.log(res)
       if (!res.ok) {
         console.log("error", data);
         return;
@@ -22,7 +22,7 @@ const PropertyPage = () => {
       setLoading(false);
     }
     fetchProperty();
-    console.log(fetchProperty())
+    //console.log(fetchProperty())
   }, [id]);
 
   async function deleteProperty(id) {
@@ -57,6 +57,7 @@ const PropertyPage = () => {
           <p>{property.yearBuilt}</p>
           <p>{property.bedrooms}</p>
           <button onClick={() => navigate("/")}>Back</button>
+          <button onClick={() => navigate(`/edit/${id}`)}>Edit</button>
           <button onClick={() => deleteProperty(property._id)}>Delete</button>
         </>
       )}
