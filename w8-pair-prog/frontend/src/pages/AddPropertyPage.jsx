@@ -1,6 +1,43 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import useField from "../hooks/useField.js"
+import usePropertyCreate from "../hooks/usePropertyCreate.js"
+
 const AddPropertyPage = () => {
-  const submitForm = (e) => {
+  const navigate = useNavigate();
+  const title = useField("text")
+  const [type, setType] = useState("Apartment");
+  const description = useField("text")
+  const price = useField("number")
+  const address = useField("text")
+  const city = useField("text")
+  const state = useField("text")
+  const squareFeet = useField("number")
+  const yearBuilt = useField("number")
+  const bedrooms = useField("number")
+
+  const { propertyCreate, error, isLoading } = usePropertyCreate("/api/properties");
+
+  async function submitForm(e) {
     e.preventDefault();
+    const response = await propertyCreate({
+      title: title.value,
+      type,
+      description: description.value,
+      price: price.value,
+      location: {
+        address: address.value,
+        city: city.value,
+        state: state.value,
+      },
+      squareFeet: squareFeet.value,
+      yearBuilt: yearBuilt.value,
+      bedrooms: bedrooms.value
+    });
+    if (response) {
+      console.log("success")
+      navigate("/");
+    }
     console.log("Form submitted");
   };
 
@@ -9,29 +46,29 @@ const AddPropertyPage = () => {
       <h2>Add a New Property</h2>
       <form onSubmit={submitForm}>
         <label>Title:</label>
-        <input type="text" required />
+        <input {...title} required />
         <label>Type:</label>
-        <select>
-          <option value="Apartment">Apartment</option>
-          <option value="House">House</option>
-          <option value="Commercial">Commercial</option>
+        <select onChange={(e) => setType(e.target.value)}>
+          <option type="text" value="Apartment">Apartment</option>
+          <option type="text" value="House">House</option>
+          <option type="text" value="Commercial">Commercial</option>
         </select>
         <label>Description:</label>
-        <textarea required></textarea>
+        <textarea {...description} required></textarea>
         <label>Price:</label>
-        <input type="number" step="0.01" min="0" required />
+        <input {...price} step="0.01" min="0" required />
         <label>Street Address:</label>
-        <input type="text" required />
+        <input {...address} required />
         <label>City:</label>
-        <input type="text" required />
+        <input {...city} required />
         <label>State:</label>
-        <input type="text" required />
+        <input {...state} required />
         <label>Square Feet:</label>
-        <input type="number" min="0" required />
+        <input {...squareFeet} min="0" required />
         <label>Year Built:</label>
-        <input type="number" min="1800" required />
+        <input {...yearBuilt} min="1800" required />
         <label>Bedrooms:</label>
-        <input type="number" min="0" required />
+        <input {...bedrooms} min="0" required />
         <button>Add Property</button>
       </form>
     </div>

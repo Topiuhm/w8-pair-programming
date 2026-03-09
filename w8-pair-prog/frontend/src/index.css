@@ -12,12 +12,12 @@
 .navbar a:hover { color: #f1356d; }
 .content { max-width: 600px; margin: 40px auto; padding: 20px; }
 
-.rental-list { display: flex; flex-direction: column; gap: 20px; padding: 20px; background-color: #f9f9f9; }
-.rental-preview { padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: box-shadow 0.3s ease; }
-.rental-preview:hover { box-shadow: 1px 3px 5px rgba(41,20,156,0.1); }
-.rental-preview h2 { margin: 0 0 10px; font-size: 1.5em; color: #f1356d; }
-.rental-preview p { margin: 5px 0; color: #666; }
-.rental-preview a { text-decoration: none; }
+.property-list { display: flex; flex-direction: column; gap: 20px; padding: 20px; background-color: #f9f9f9; }
+.property-preview { padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: box-shadow 0.3s ease; }
+.property-preview:hover { box-shadow: 1px 3px 5px rgba(41,20,156,0.1); }
+.property-preview h2 { margin: 0 0 10px; font-size: 1.5em; color: #f1356d; }
+.property-preview p { margin: 5px 0; color: #666; }
+.property-preview a { text-decoration: none; }
 
 .create { max-width: 400px; margin: 0 auto; text-align: center; }
 .create label { text-align: left; display: block; }

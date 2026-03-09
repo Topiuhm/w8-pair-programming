@@ -1,19 +1,9 @@
 import PropertyListing from "./PropertyListing";
 
-const PropertyListings = () => {
+const PropertyListings = ({ properties }) => {
   return (
-    <div className="rental-list">
-      <PropertyListing
-        property={{
-          title: "Sample Property",
-          type: "Apartment",
-          price: 250000,
-          location: { address: "123 Main St", city: "Helsinki", state: "Uusimaa" },
-          squareFeet: 1200,
-          yearBuilt: 2015,
-          bedrooms: 3,
-        }}
-      />
+    <div className="property-list">
+      {properties.map((property) => <PropertyListing key={property._id} properties={property}/>)}
     </div>
   );
 };
